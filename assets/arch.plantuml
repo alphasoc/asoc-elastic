@@ -1,0 +1,19 @@
+@startuml
+node "host" {
+  () "intf" <- [Packetbeat] : capture packets
+  [Packetbeat] -> [Elasticsearch] : for indexing
+  [NFR] -> [Elasticsearch] : query telemetry
+  [Elasticsearch] --> [NFR] : telemetry response
+}
+
+cloud "AlphaSOC" {
+  [Analytics Engine]
+  [Console]
+}
+
+:User: ----> [Console]
+
+[NFR] --> [Analytics Engine] : send for analysis
+[Analytics Engine] --> [Analytics Engine] : analyze telemetry
+[Analytics Engine] --> [Console] : generate detections
+@enduml

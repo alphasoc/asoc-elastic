@@ -1,14 +1,13 @@
 # asoc-elastic
 
 This project provides instructions (this README) for configuring an end-to-end network
-threat monitoring solution based on parts of the [Elastic](https://www.elastic.co) stack,
-and on AlphaSOCs [Network Flight Recorder](https://github.com/alphasoc/nfr), Analytics
-Engine (AE) and Console.  [Packetbeat](https://www.elastic.co/beats/packetbeat) is used
-to capture and analyze network packets.  This data is then sent to
-[Elasticsearch](https://www.elastic.co/elasticsearch/) for indexing.  NFR queries
-Elasticsearch, extracting relevant network telemetry, and sends this data to AE, which
-analyzes it for potential network threats.  Any such detections will be visible, and
-actionable, in the AlphaSOC Console.
+threat monitoring solution based on AlphaSOCs [Network Flight Recorder](https://github.com/alphasoc/nfr)
+(NFR), Analytics Engine (AE) and Console, along with [Packetbeat](https://www.elastic.co/beats/packetbeat)
+and [Elasticsearch](https://www.elastic.co/elasticsearch).  Packetbeat is used to capture
+and analyze network packets, the result of which is sent to Elasticsearch for indexing.
+NFR then queries Elasticsearch, extracting relevant network telemetry, and sends this data
+to AE, which further analyzes it for potential network threats.  Any such detections will
+be visible, and actionable, in the AlphaSOC Console.
 
 At the time of writing this guide, Elastic v7.16.2, and NFR v1.11.1 were used.
 
@@ -21,17 +20,7 @@ the cloud-based Elasticsearch Service is not covered in this document.
 
 ## Architecture
 
-**TODO** plantuml diag?
-packetbeat sucks in pkts
-NFR sucks in telemetry
-
-    host                                                      net
-    -------------------------------------------------         -------------------------
-           pkts           processing                                          Console
-    intf  ------> packetbeat -->  elastic (indexes)                              ^
-    promisc.                       ^                 delivers                    |
-                                   |--> NFR -------------------> AE (analyzes) --+
-    -------------------------------------------------         -------------------------
+![arch](assets/arch.svg "Architecture")
 
 ## Who is this for?
 
@@ -50,13 +39,16 @@ will grant you a **free**, 30 day demo of AlphaSOC services.  You'll receive an 
 with a verification link.  Be sure to verify the account before continuing.
 
 Once you have an account, please visit: [Console | AlphaSOC](https://console.alphasoc.net)
-and sign in with your credentials.  Then, head over to https://console.alphasoc.net/credentials
-and in the _API Keys_ pane, create a new API key by clicking _+ New API Key_, setting a
-description for the key if you wish, and finally clicking _Generate_.  **Be sure to copy
-the API key at this point to your clipboard for later use!  You will not be able to copy
-it later on and will need to generate a new key.**
+and sign in with your credentials.  Then, head over to the [credentials](https://console.alphasoc.net/credentials)
+page and in the _API Keys_ pane, create a new API key by clicking _**+ New API Key**_, setting a
+description for the key if you wish, and clicking **_Generate_**.
 
-**TODO**: screens of the above?
+<img src="./assets/add-key.png" height=300 />
+
+**Be sure to copy the API key at this point to your clipboard for later use!  You will not
+be able to copy it later on and will need to generate a new key.**
+
+<img src="./assets/copy-key.png" height=300 />
 
 **NOTE:** If you're an AlphaSOC developer using the staging variant of AlphaSOC services,
 see the [Developers](#developers) section before continuing on.
@@ -121,7 +113,8 @@ installation locations.
 
 ### Packetbeat
 
-
+The goal is to get Packetbeat to capture packets on a given interface, and relay the resulting
+telemetry to Elasticsearch for indexing.
 
 ### Elasticsearch
 
