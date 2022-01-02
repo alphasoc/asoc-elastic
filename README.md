@@ -343,7 +343,7 @@ telemetry.  You can build `flightsim` from source (a Go compiler will be needed)
 download one of binary packages from the
 [latest release](https://github.com/alphasoc/flightsim/releases/latest) page.
 
-For an overview of how to use `flightsime`, and assuming a local installation,
+For an overview of how to use `flightsim`, and assuming a local installation,
 change to the directory where flightsim has been untarred, and run as:
 
     $ ./flightsim -h
@@ -376,6 +376,11 @@ Also, in your NFR configuration, you want to add:
       # support@alphasoc.com to discuss on-premise operation and VM setup.
       # Default: https://api.alphasoc.net
       host: https://api.staging.alphasoc.net
+
+## Where to go from here?
+
+TBD
+- security/hardening
 
 ## Troubleshooting
 
