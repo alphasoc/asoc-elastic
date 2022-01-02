@@ -44,12 +44,12 @@ and sign in with your credentials.  Then, head over to the [credentials](https:/
 page and in the _API Keys_ pane, create a new API key by clicking _**+ New API Key**_, setting a
 description for the key if you wish, and clicking **_Generate_**.
 
-<img src="./assets/add-key.png" height=300 />
+![add-key](assets/add-key.png)
 
 **Be sure to copy the API key at this point to your clipboard for later use!  You will not
 be able to copy it later on and will need to generate a new key.**
 
-<img src="./assets/copy-key.png" height=300 />
+![copy-key](assets/copy-key.png)
 
 **NOTE:** If you're an AlphaSOC developer using the staging variant of AlphaSOC services,
 see the [Developers](#developers) section before continuing on.
@@ -330,7 +330,7 @@ Head on over to [Console | AlphaSOC](https://console.alphasoc.net), and sign in 
 credentials.  In the main _Dashboard_, you should see _Telemetry Sources_ having recently
 been updated.
 
-<img src="./assets/dash.png" height=500 />
+![dashboard](assets/dash.png)
 
 ## Testing AlphaSOC Threat Detection
 
@@ -360,7 +360,7 @@ Finally, visit [Console | AlphaSOC](https://console.alphasoc.net/) and in the _D
 an overview of detected network threats should be availalbe.  For a more detailed view,
 visit the Consoles [Detections](https://console.alphasoc.net/detections) page.
 
-<img src="./assets/detections.png" height=700 />
+![detections](assets/detections.png)
 
 ## Developers
 
