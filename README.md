@@ -376,3 +376,7 @@ Also, in your NFR configuration, you want to add:
       # support@alphasoc.com to discuss on-premise operation and VM setup.
       # Default: https://api.alphasoc.net
       host: https://api.staging.alphasoc.net
+
+## Troubleshooting
+
+TBD
