@@ -4,6 +4,7 @@ node "host" {
   [Packetbeat] -> [Elasticsearch] : for indexing
   [NFR] -> [Elasticsearch] : query telemetry
   [Elasticsearch] --> [NFR] : telemetry response
+  [NFR] -> [NFR] : analyze/score traffic
 }
 
 cloud "AlphaSOC" {
