@@ -118,7 +118,7 @@ favourite text editor and make the following changes:
 1. Select a network interface from which to capture packets.
 
         # =============================== Network device ===============================
-        
+
         # Select the network interface to sniff the data. On Linux, you can use the
         # "any" keyword to sniff on all connected interfaces.
         packetbeat.interfaces.device: YOUR_SELECTED_INTF
@@ -130,10 +130,10 @@ username and password authentication will be used, along with the default creden
         output.elasticsearch:
           # Array of hosts to connect to.
           hosts: ["localhost:9200"]
-        
+
           # Protocol - either `http` (default) or `https`.
           #protocol: "https"
-        
+
           # Authentication credentials - either API key or username/password.
           #api_key: "id:api_key"
           username: "elastic"
@@ -144,7 +144,7 @@ as documented in the config snippet below, is needed for NFR queries.  Read the 
 you're curious why.
 
         # ================================= Processors =================================
-        
+
         processors:
           - # Add forwarded to tags when processing data from a network tap or mirror.
             if.contains.tags: forwarded
@@ -189,9 +189,10 @@ analysis.  Open `~/nfr/config.yml` and make the following changes:
 
 1. Set your API key (obtained in the [AlphaSOC Registration](#alphasoc-registration) section.
 
-        # Your AlphaSOC API key (required to use the service)
-        # Use "nfr account register" to generate one
-        api_key: YOUR_ALPHASOC_API_KEY
+        engine:
+          # Your AlphaSOC API key (required to use the service)
+          # Use "nfr account register" to generate one
+          api_key: YOUR_ALPHASOC_API_KEY
 
 1. Under the _inputs_ section, enable the `elastic` input method, set the host where Elasticsearch
 will run (ie. `localhost:9200`, and assign the `username` and `password`.
@@ -202,13 +203,13 @@ will run (ie. `localhost:9200`, and assign the `username` and `password`.
             # Set to true to retrieve telemetry from elasticsearch
             # Default: false
             enabled: true
-        
+
             # Either cloud_id or hosts are required. You can find your
             # Cloud ID at https://cloud.elastic.co/deployments/
             # cloud_id:
             hosts:
               - http://localhost:9200
-        
+
             # Use an API key (recommended) or username/password to authorize to the
             # elastic search instance. Find out more about API Keys here:
             # https://cloud.elastic.co/deployment-features/keys
@@ -223,28 +224,36 @@ name used by Packetbeat, as below.
 
         inputs:
         ...
-        elastic:
-        ...
-          searches:
-            # Define your searches, one per event type (dns, ip, http, tls). At least
-            # one search is required.
-            - event_type: dns
-            ...
-              # Indices to search. Wildcards are allowed.
-              indices:
-                - packetbeat-*
-            ...
-            - event_type: ip
-              indices:
-                - packetbeat-*
-            ...
-            - event_type: http
-              indices:
-                - packetbeat-*
-            ...
-            - event_type: tls
-              indices:
-                - packetbeat-*
+          elastic:
+          ...
+            searches:
+              # Define your searches, one per event type (dns, ip, http, tls). At least
+              # one search is required.
+              - event_type: dns
+              ...
+                # Indices to search. Wildcards are allowed.
+                indices:
+                  - packetbeat-*
+                # Set index_schema if your documents adhere to well known formats.
+                # If your document structure is non-standard, leave index_schema empty and
+                # use search_terms and field_names to customize the search query and to let
+                # nfr now what document fields it should look for.
+                index_schema: ecs
+              ...
+              - event_type: ip
+                indices:
+                  - packetbeat-*
+                index_schema: ecs
+              ...
+              - event_type: http
+                indices:
+                  - packetbeat-*
+                index_schema: ecs
+              ...
+              - event_type: tls
+                indices:
+                  - packetbeat-*
+                index_schema: ecs
 
 1. Lastly, modify the location where NFR will store local data.  The example below shows
 Linux defaults (ie. `/var/run`).
@@ -252,7 +261,7 @@ Linux defaults (ie. `/var/run`).
         ################################################################################
         # Internal NFR data location
         ################################################################################
-        
+
         data:
           # Define the file for internal data and caching
           # Default:
@@ -265,7 +274,7 @@ Linux defaults (ie. `/var/run`).
           # - linux: /run/nfr
           # - windows: %AppData%/nfr
           dir: /run/nfr/data
-        
+
 
 **NOTE:** If you're an AlphaSOC developer using the staging variant of AlphaSOC services,
 see the [Developers](#developers) section before continuing on.
